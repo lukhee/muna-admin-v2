@@ -1,23 +1,37 @@
 import React from 'react';
-import { TextField, menuItem, makeStyles } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import { TextField } from "@material-ui/core";
 
-const useStyle = makeStyles((theme)=> ({
+const CssTextField = withStyles((theme) => ({
     root: {
+      "& label.Mui-focused": {
+        color: "green",
+      },
+      "& .MuiInput-underline:after": {
+        borderBottomColor: "green",
+      },
+      "& .MuiOutlinedInput-root": {
+        "&:hover fieldset": {
+          borderColor: "green",
+        },
+        "&.Mui-focused fieldset": {
+          borderColor: "green",
+        },
+      },
+    },
+  }))(TextField);
 
-    }
-}))
-
-const Input = ({text}) => {
-    const classes = useStyle()
+const UiTextField = ({ size, children, ...rest}) => {
     return (
-        <div>
-            Input
-        </div>
+        <CssTextField size={size} {...rest}>
+            {children}
+        </CssTextField>
     );
 };
 
-Input.defaultProps = {
+UiTextField.defaultProps = {
     text: "text",
+    size: 'small'
   };
 
-export default Input;
+export default UiTextField;

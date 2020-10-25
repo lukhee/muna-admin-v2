@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
     border: "1px solid rgba(0,0,0,0.14);",
     "& span": {
       padding: theme.spacing(0.7, 2),
-      borderRadius: "5px",
+      borderRadius: "2px",
       color: "#f5f5f5",
       fontSize: "0.5rem",
       fontWeight: "bold",
@@ -76,10 +76,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   published: {
-    background: "green",
+    background: theme.palette.primary.main,
   },
   unpublished: {
-    background: "#f50057",
+    background: theme.palette.secondary.main,
   },
 }));
 

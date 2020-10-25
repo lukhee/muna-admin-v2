@@ -3,6 +3,8 @@ import { makeStyles, Box } from "@material-ui/core";
 import { Modal } from "../../UiElements";
 import { ProverbTable } from "./widgets";
 import Page from "../../general/Pages";
+import {CreateProverb} from './widgets'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     float: "right",
   },
+  tableRoot:{
+    
+  },
   table: {
     marginTop: theme.spacing(1),
   },
@@ -31,10 +36,12 @@ const Proverbs = () => {
     <Page className={classes.root} title="Proverbs">
       <Box className={classes.tableField}>
         <Box className={classes.addProverb}>
-          <Modal modalTitle="Add Proverb">Form Field</Modal>
+          <Modal modalTitle="Add Proverb">
+            <CreateProverb classes= {classes}/>
+          </Modal>
         </Box>
         <Box className={classes.table}>
-          <ProverbTable />
+          <ProverbTable/>
         </Box>
       </Box>
     </Page>
