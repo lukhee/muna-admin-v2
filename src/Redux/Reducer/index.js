@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import proverb from './proverb';
+import proverbs from './proverbs';
 
 export default combineReducers({
-  proverb
+  proverbs
 });

@@ -27,29 +27,6 @@ const tableHeader = [
   },
 ];
 
-const proverbData = [
-  {
-    id: 1,
-    content: "let celebrate",
-    publish: false,
-  },
-  {
-    id: 2,
-    content: "let dance",
-    publish: true,
-  },
-  {
-    id: 3,
-    content: "let celebrate",
-    publish: false,
-  },
-  {
-    id: 4,
-    content: "let dance",
-    publish: true,
-  },
-];
-
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.action.selected,
@@ -83,15 +60,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProverbTable = () => {
+const ProverbTable = ({ proverbs, publishHandler, previewHandler }) => {
   const classes = useStyles();
 
   return (
     <TableBody tableHeader={tableHeader} actionField={true}>
-      {proverbData.map((data, index) => (
+      {proverbs.map((data, index) => (
         <TableRow key={data.id}>
           <StyledTableCell component="th" scope="data">
-            {index}
+            {index + 1}
           </StyledTableCell>
           <StyledTableCell>{data.content}</StyledTableCell>
           <StyledTableCell>
@@ -102,7 +79,13 @@ const ProverbTable = () => {
             </span>
           </StyledTableCell>
           <StyledTableCell align="right">
-            <MenuDropDown menuTitle={menuTitle} />
+            <MenuDropDown
+              menuTitle={menuTitle}
+              publish={data.publish}
+              toggleState={true}
+              publishHandler={() => publishHandler(data.publish)}
+              previewHandler={() => previewHandler(data.id)}
+            />
           </StyledTableCell>
         </TableRow>
       ))}
@@ -111,7 +94,7 @@ const ProverbTable = () => {
 };
 
 ProverbTable.proptype = {
-  proverb: Proptypes.object.isRequired,
+  proverbs: Proptypes.object.isRequired,
   tableHeader: Proptypes.object.isRequired,
 };
 

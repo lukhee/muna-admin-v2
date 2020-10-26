@@ -1,12 +1,35 @@
 import * as type from './actionContents'
 import axios from 'axios'
 
+const proverbData = [
+    {
+      id: 1,
+      content: "let celebrate",
+      publish: false,
+    },
+    {
+      id: 2,
+      content: "let dance",
+      publish: true,
+    },
+    {
+      id: 3,
+      content: "let celebrate",
+      publish: false,
+    },
+    {
+      id: 4,
+      content: "let dance",
+      publish: true,
+    },
+  ];
+
 export const FetchProverb = () => async (dispatch)=> {
     try {
         const data = await axios.get('https://munaproverb.herokuapp.com/api/proverbs/proverbs/')
         dispatch({
             type: type.FETCH_PROVERBS,
-            payoad: data
+            payload: data
         })
         
     } catch (error) {

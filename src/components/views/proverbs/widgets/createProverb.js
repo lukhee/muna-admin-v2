@@ -86,7 +86,7 @@ const CreateProverb = () => {
         name="proverb"
       />
       <Grid container spacing={2}>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <FormControl className={classes.selectField}>
             <UiTextField
               id="language"
@@ -106,7 +106,7 @@ const CreateProverb = () => {
             </UiTextField>
           </FormControl>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <FormControl className={classes.selectField}>
             <UiTextField
               id="category"

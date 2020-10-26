@@ -15,6 +15,8 @@ const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.background.dark,
     color: theme.palette.common.black,
+    fontWeight: 'bold',
+    fontSize: '18px',
     padding: theme.spacing(1.5,1),
   },
   body: {

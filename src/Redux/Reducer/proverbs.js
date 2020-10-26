@@ -1,4 +1,4 @@
-import * as types from "../actions/actionConstants";
+import * as types from "../Actions/actionContents";
 const initialState = {
   proverbs: null,
   active_proverb: null,
@@ -11,6 +11,7 @@ export default function (state = initialState, action) {
     case types.FETCH_PROVERBS:
       return {
         ...state,
+        proverbs: payload.data,
         loading: false,
       };
 

@@ -65,9 +65,9 @@ const useStyles = makeStyles((theme) => ({
 const CustomizedMenus = ({
   previewHandler,
   publishHandler,
-  status,
   toggleState,
   menuTitle,
+  publish
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const classes = useStyles();
@@ -120,7 +120,7 @@ const CustomizedMenus = ({
           <StyledMenuItem>
             <ListItemText
               onClick={handlePublish}
-              secondary={status ? "unpublish" : "publish"}
+              secondary={publish ? "unpublish" : "publish"}
             />
           </StyledMenuItem>
         )}
