@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal as UIModal, makeStyles } from "@material-ui/core";
-import Button from './Button'
+import Button from "./Button";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -10,21 +10,21 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "capitalize",
   },
   paper: {
-    position: 'absolute',
+    position: "absolute",
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    top: '50%',
-    left: '50%',
+    top: "50%",
+    left: "50%",
     transform: `translate(-50%, -50%)`,
-    width: '80%',
-    [theme.breakpoints.up('lg')]: {
-      width: '50%'
+    width: "80%",
+    [theme.breakpoints.up("lg")]: {
+      width: "50%",
     },
-    [theme.breakpoints.up('md')]: {
-      width: '50%'
-    }
+    [theme.breakpoints.up("md")]: {
+      width: "50%",
+    },
   },
 }));
 
@@ -51,9 +51,7 @@ const Modal = ({ children, modalTitle }) => {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <div className={classes.paper}>
-          {children}
-        </div>
+        <div className={classes.paper}>{children}</div>
       </UIModal>
     </div>
   );

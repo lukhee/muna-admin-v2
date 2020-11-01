@@ -9,5 +9,5 @@ export {
     Modal,
     MenuDropDown,
     Table,
-    UiTextField
+    UiTextField,
 }

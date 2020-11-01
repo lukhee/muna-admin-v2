@@ -11,7 +11,7 @@ import GlobalStyles from "./components/general/GlobalStyle";
 import theme from "./components/theme";
 import MainLayout from "./container/App/MainLayout";
 import DashBaord from "./container/App/DashBaord";
-import store from './Redux/store'
+import store from "./Redux/store";
 
 const App = () => {
   return (

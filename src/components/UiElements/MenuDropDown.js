@@ -65,6 +65,7 @@ const useStyles = makeStyles((theme) => ({
 const CustomizedMenus = ({
   previewHandler,
   publishHandler,
+  deleteHandler,
   toggleState,
   menuTitle,
   publish
@@ -88,6 +89,11 @@ const CustomizedMenus = ({
   const handlePublish = () => {
     setAnchorEl(null);
     publishHandler();
+  };
+
+  const handleDelete = () => {
+    setAnchorEl(null);
+    deleteHandler();
   };
 
   return (

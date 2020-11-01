@@ -39,13 +39,16 @@ const useStyles = makeStyles((theme) => ({
       textTransform: "capitalize",
     },
   },
+  marginBtn: {
+    marginBottom: theme.spacing(1)
+  }
 }));
 
 const Table = ({ tableHeader, children, actionField }) => {
   const classes = useStyles();
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer className={classes.marginBtn} component={Paper}>
       <UITable className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>

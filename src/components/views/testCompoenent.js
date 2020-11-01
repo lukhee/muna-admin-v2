@@ -1,6 +1,5 @@
 import React from "react";
-import { Button, Modal, MenuDropDown } from "../UiElements";
-import { ProverbTable } from "../views/proverbs/widgets/";
+import { Button, Modal, MenuDropDown, Tab } from "../UiElements";
 
 const testCompoenent = () => {
   return (
@@ -12,7 +11,6 @@ const testCompoenent = () => {
         previewHandler={() => console.log("one")}
         publishHandler={() => console.log("two")}
       />
-      <ProverbTable />
     </div>
   );
 };

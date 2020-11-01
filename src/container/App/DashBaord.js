@@ -6,11 +6,13 @@ import Proverbs from "../../components/views/proverbs";
 import PreviewProverb from "../../components/views/proverbs/preveiwProverb";
 import TestComponent from "../../components/views/testCompoenent";
 import NotFound from "../../components/views/error/NotFoundView";
+import Alert from "../../components/Widgets/Alert";
 
 const Application = () => {
   const dashboardRoute = ['/admin', '/admin/dashboard']
   return(
     <DashBoard>
+      <Alert/>
       <Switch>
         <Route exact path={dashboardRoute} component={DashboardView} />
         <Route exact path="/admin/proverbs" component={Proverbs} />

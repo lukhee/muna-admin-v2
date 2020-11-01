@@ -6,7 +6,12 @@ import { Modal } from "../../UiElements";
 import { ProverbTable } from "./widgets";
 import Page from "../../general/Pages";
 import { CreateProverb } from "./widgets";
-import { FetchProverb } from "../../../Redux/Actions/ProverbActions";
+import {
+  FetchProverb,
+  CreateProverbAction,
+  DeleteProverb,
+  ActivateProverb
+} from "../../../Redux/Actions/ProverbActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,36 +35,52 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Proverbs = ({ history, FetchProverb, proverbs: { loading, proverbs, ...rest } }) => {
+const Proverbs = ({
+  history,
+  FetchProverb,
+  CreateProverbAction,
+  DeleteProverb,
+  ActivateProverb,
+  proverbs: { loading, proverbs, ...rest },
+}) => {
   useEffect(() => {
     FetchProverb();
   }, [FetchProverb]);
   const classes = useStyles();
 
   const publishHandler = (publish) => {
-    console.log(publish)
-  }
+    console.log(publish);
+  };
 
   const previewHandler = (id) => {
-    history.push(`/admin/proverbs/${id}`)
-  }
+    ActivateProverb(id, history)
+  };
+
+  const deleteHandler = (id) => {
+    DeleteProverb(id);
+  };
 
   return (
     <Page className={classes.root} title="Proverbs">
       <Box className={classes.tableField}>
         <Box className={classes.addProverb}>
           <Modal modalTitle="Add Proverb">
-            <CreateProverb classes={classes} />
+            <CreateProverb
+              classes={classes}
+              CreateProverbAction={CreateProverbAction}
+            />
           </Modal>
         </Box>
         <Box className={classes.table}>
           {loading ? (
             <h1> Loading... </h1>
           ) : (
-            <ProverbTable 
-            proverbs={proverbs}
-            publishHandler = {(publish) => publishHandler(publish)} 
-            previewHandler = {(id) => previewHandler(id)} />
+            <ProverbTable
+              proverbs={proverbs}
+              publishHandler={(publish) => publishHandler(publish)}
+              previewHandler={(id) => previewHandler(id)}
+              deleteHandler={(id) => deleteHandler(id)}
+            />
           )}
         </Box>
       </Box>
@@ -69,6 +90,7 @@ const Proverbs = ({ history, FetchProverb, proverbs: { loading, proverbs, ...res
 
 ProverbTable.propTypes = {
   FetchProverb: PropTypes.func.isReqired,
+  CreateProverbAction: PropTypes.func,
   proverbs: PropTypes.array.isRequired,
 };
 
@@ -76,4 +98,10 @@ const mapStateToProps = (state) => ({
   proverbs: state.proverbs,
 });
 
-export default connect(mapStateToProps, { FetchProverb })(Proverbs);
+export default connect(mapStateToProps, {
+  FetchProverb,
+  CreateProverbAction,
+  DeleteProverb,
+  ActivateProverb
+})(Proverbs);
+ 

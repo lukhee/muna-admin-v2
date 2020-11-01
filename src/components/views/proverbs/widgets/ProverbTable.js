@@ -10,6 +10,10 @@ const menuTitle = [
     id: "1M",
     title: "Preview",
   },
+  {
+    id: "2M",
+    title: "Delete",
+  },
 ];
 
 const tableHeader = [
@@ -60,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProverbTable = ({ proverbs, publishHandler, previewHandler }) => {
+const ProverbTable = ({ proverbs, publishHandler, previewHandler, deleteHandler }) => {
   const classes = useStyles();
 
   return (
@@ -85,6 +89,7 @@ const ProverbTable = ({ proverbs, publishHandler, previewHandler }) => {
               toggleState={true}
               publishHandler={() => publishHandler(data.publish)}
               previewHandler={() => previewHandler(data.id)}
+              deleteHandler={() => deleteHandler(data.id)}
             />
           </StyledTableCell>
         </TableRow>

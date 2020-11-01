@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { FormControl, MenuItem, Grid } from "@material-ui/core";
 import { UiTextField, Button } from "../../../UiElements";
 import {formValidation} from "../../../helperFunction";
+
 const languageData = [
   {
     value: "yoruba",
@@ -41,9 +42,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CreateProverb = () => {
+const CreateProverb = ({CreateProverbAction, history}) => {
   const [formData, setForm] = useState({
-    proverb: "",
+    content: "",
     language: "",
     category: "",
   });
@@ -52,7 +53,7 @@ const CreateProverb = () => {
     languageError: '',
     category: '',
   })
-  const { proverb, language, category } = formData;
+  const { content, language, category } = formData;
 
   const handleChange = (event) => {
     setForm({
@@ -64,7 +65,8 @@ const CreateProverb = () => {
   const submitForm = (event) => {
     event.preventDefault();
     const error = formValidation(formData);
-    if(!error) return setValidationErrors()
+    if(error) return setValidationErrors()
+    CreateProverbAction(formData, history)
   };
 
   const classes = useStyles();
@@ -75,15 +77,15 @@ const CreateProverb = () => {
         className={classes.selectField}
         label="Your Proverb"
         onChange={handleChange}
-        value={proverb}
+        value={content}
         error = {false}
         multiline
         fullWidth
         rows={3}
         rowsMax={4}
         variant="outlined"
-        id="proverb"
-        name="proverb"
+        id="content"
+        name="content"
       />
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>

@@ -1,7 +1,7 @@
 import * as types from "../Actions/actionContents";
 const initialState = {
   proverbs: null,
-  active_proverb: null,
+  activeProverb: null,
   loading: true,
 };
 
@@ -15,9 +15,16 @@ export default function (state = initialState, action) {
         loading: false,
       };
 
+      case types.CREATE_PROVERB:
+      return {
+        ...state,
+        // proverbs: [payload.data,...state.proverbs],
+        loading: false,
+      };
+
       case types.ACTIVE_PROVERB:
       const activeProverb = state.proverbs.find(proverb=>{
-        return proverb.id === payload.proverbId})
+        return proverb.id === payload})
       return {
         ...state,
         activeProverb: activeProverb,
