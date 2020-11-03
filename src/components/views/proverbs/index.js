@@ -53,7 +53,8 @@ const Proverbs = ({
   };
 
   const previewHandler = (id) => {
-    ActivateProverb(id, history)
+    // ActivateProverb(id, history)
+  history.push(`/admin/proverbs/${id}`);
   };
 
   const deleteHandler = (id) => {

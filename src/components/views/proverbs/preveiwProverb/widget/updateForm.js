@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import Proptypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import { FormControl, MenuItem, Grid } from "@material-ui/core";
-import { UiTextField, Button } from "../../../UiElements";
-import {formValidation} from "../../../helperFunction";
+import { UiTextField, Button } from "../../../../UiElements";
+import { formValidation } from "../../../../helperFunction";
 
 const languageData = [
   {
@@ -19,41 +20,25 @@ const languageData = [
   },
 ];
 
-const categoryData = [
-  {
-    value: "love",
-    label: "Love",
-  },
-  {
-    value: "tragic",
-    label: "Tragic",
-  },
-  {
-    value: "affection",
-    label: "Affection",
-  },
-];
-
 const useStyles = makeStyles((theme) => ({
   root: {},
   selectField: {
-    margin: theme.spacing(2,0),
+    margin: theme.spacing(2, 0),
     width: "100%",
   },
 }));
 
-const CreateProverb = ({CreateProverbAction, history}) => {
+const UpdateForm = ({ createAction, updateType, proverbId }) => {
   const [formData, setForm] = useState({
     content: "",
     language: "",
-    category: "",
   });
   const [validationErrors, setValidationErrors] = useState({
-    proverbError: '',
-    languageError: '',
-    category: '',
-  })
-  const { content, language, category } = formData;
+    proverbError: "",
+    languageError: "",
+    category: "",
+  });
+  const { content, language } = formData;
 
   const handleChange = (event) => {
     setForm({
@@ -65,8 +50,8 @@ const CreateProverb = ({CreateProverbAction, history}) => {
   const submitForm = (event) => {
     event.preventDefault();
     const error = formValidation(formData);
-    if(error) return setValidationErrors()
-    CreateProverbAction(formData, history)
+    if (error) return setValidationErrors();
+    createAction({formData, updateType});
   };
 
   const classes = useStyles();
@@ -75,13 +60,13 @@ const CreateProverb = ({CreateProverbAction, history}) => {
     <form onSubmit={submitForm}>
       <UiTextField
         className={classes.selectField}
-        label="Your Proverb"
+        label={updateType}
         onChange={handleChange}
         value={content}
-        error = {false}
+        error={false}
         multiline
         fullWidth
-        rows={3}
+        rows={2}
         rowsMax={4}
         variant="outlined"
         id="content"
@@ -108,33 +93,17 @@ const CreateProverb = ({CreateProverbAction, history}) => {
             </UiTextField>
           </FormControl>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <FormControl className={classes.selectField}>
-            <UiTextField
-              id="category"
-              name="category"
-              select
-              size='small'
-              label="Your Category"
-              value={category}
-              onChange={handleChange}
-              helperText="Please select category"
-              variant="outlined"
-            >
-              {categoryData.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </UiTextField>
-          </FormControl>
-        </Grid>
       </Grid>
       <Button type="submit" className={classes.selectField}>
-        Submit
+        Create {updateType}
       </Button>
     </form>
   );
 };
 
-export default CreateProverb;
+
+UpdateForm.proptype = {
+  updateType : Proptypes.string.isRequired,
+};
+
+export default UpdateForm;

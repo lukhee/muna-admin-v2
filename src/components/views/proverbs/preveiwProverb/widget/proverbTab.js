@@ -48,6 +48,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleTabs({
   titles,
+  publishHandler,
+  editHandler,
+  deleteHandler,
+  createActionHandler,
   content: { translation, interpretation },
 }) {
   const classes = useStyles();
@@ -77,10 +81,18 @@ export default function SimpleTabs({
           editHandler={editHandler}
           deleteHandler={deleteHandler}
           translation={translation}
+          createActionHandler={createActionHandler}
         />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Interpretation interpretation={interpretation} />
+        <Interpretation
+          interpretation={interpretation}
+          publishHandler={publishHandler}
+          editHandler={editHandler}
+          deleteHandler={deleteHandler}
+          translation={translation}
+          createActionHandler={createActionHandler}
+        />
       </TabPanel>
     </div>
   );

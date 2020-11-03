@@ -1,13 +1,15 @@
-import React from "react";
-// import { connect } from "react-redux";
+import React, { useState } from "react";
+import {withRouter } from 'react-router'
 import Proptypes from "prop-types";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { TableCell, TableRow } from "@material-ui/core";
 import {
   Table as TableBody,
   MenuDropDown,
-  Button,
+  Modal,
 } from "../../../../UiElements";
+import { UpdateForm } from "../widget";
+import { TramRounded } from "@material-ui/icons";
 
 const menuTitle = [
   {
@@ -27,11 +29,16 @@ const tableHeader = [
   },
   {
     id: 2,
-    value: "Transaltion",
+    value: "Interpretation",
   },
   {
     id: 3,
     value: "Language",
+  },
+  ,
+  {
+    id: 4,
+    title: "Status",
   },
 ];
 
@@ -74,12 +81,21 @@ const Interpretation = ({
   publishHandler,
   editHandler,
   deleteHandler,
+  createActionHandler,
+  match
 }) => {
+  const [closeModal, setModal] = useState(false);
   const classes = useStyles();
+
+  const createAction = (data) => {
+    setModal(!closeModal);
+    createActionHandler({...data, proverb: match.params.id});
+  };
 
   return (
     <>
       <TableBody
+        className={classes.mrgBtm}
         tableHeader={tableHeader}
         actionField={true}
       >
@@ -90,19 +106,23 @@ const Interpretation = ({
             </StyledTableCell>
             <StyledTableCell>{data.content}</StyledTableCell>
             <StyledTableCell>{data.language}</StyledTableCell>
-            {/* <StyledTableCell>
-            <span
-              className={data.publish ? classes.published : classes.unpublished}
-            >
-              {data.publish ? "published" : "unpublished"}
-            </span>
-          </StyledTableCell> */}
+            <StyledTableCell>
+              <span
+                className={
+                  data.publish ? classes.published : classes.unpublished
+                }
+              >
+                {data.publish ? "published" : "unpublished"}
+              </span>
+            </StyledTableCell>
             <StyledTableCell align="right">
               <MenuDropDown
                 menuTitle={menuTitle}
                 publish={data.publish}
                 toggleState={true}
-                publishHandler={() => publishHandler(data.publish)}
+                publishHandler={() =>
+                  publishHandler({ type: "interpretation" })
+                }
                 previewHandler={() => editHandler(data.id, data.content)}
                 deleteHandler={() => deleteHandler(data.id)}
               />
@@ -110,7 +130,12 @@ const Interpretation = ({
           </TableRow>
         ))}
       </TableBody>
-      <Button variant="outlined"> Create Interpretation </Button>
+      <Modal modalTitle="Add Interpretation" closeModal={closeModal}>
+        <UpdateForm
+          createAction={createAction}
+          updateType="interpretation"
+        />
+      </Modal>
     </>
   );
 };
@@ -120,4 +145,4 @@ Interpretation.proptype = {
   tableHeader: Proptypes.object.isRequired,
 };
 
-export default Interpretation;
+export default withRouter(Interpretation);

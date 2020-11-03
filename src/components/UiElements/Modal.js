@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Modal as UIModal, makeStyles } from "@material-ui/core";
 import Button from "./Button";
 
@@ -28,9 +28,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Modal = ({ children, modalTitle }) => {
+const Modal = ({ children, modalTitle, closeModal }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  useEffect(() => {
+      handleClose();
+  }, [closeModal]);
 
   const handleOpen = () => {
     setOpen(true);

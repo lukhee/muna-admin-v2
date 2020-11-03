@@ -1,13 +1,14 @@
-import React from "react";
-// import { connect } from "react-redux";
+import React, { useState } from "react";
+import {withRouter } from 'react-router'
 import Proptypes from "prop-types";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { TableCell, TableRow } from "@material-ui/core";
 import {
   Table as TableBody,
   MenuDropDown,
-  Button,
+  Modal,
 } from "../../../../UiElements";
+import { UpdateForm } from "../widget";
 
 const menuTitle = [
   {
@@ -32,6 +33,10 @@ const tableHeader = [
   {
     id: 3,
     value: "Language",
+  },
+  {
+    id: 4,
+    title: "Status",
   },
 ];
 
@@ -76,8 +81,16 @@ const Tranlation = ({
   publishHandler,
   editHandler,
   deleteHandler,
+  createActionHandler,
+  match
 }) => {
+  const [closeModal, setModal] = useState(false);
   const classes = useStyles();
+
+  const createAction = (data) => {
+    setModal(!closeModal);
+    createActionHandler({...data, proverb: match.params.id});
+  };
 
   return (
     <>
@@ -93,27 +106,37 @@ const Tranlation = ({
             </StyledTableCell>
             <StyledTableCell>{data.content}</StyledTableCell>
             <StyledTableCell>{data.language}</StyledTableCell>
-            {/* <StyledTableCell>
-            <span
-              className={data.publish ? classes.published : classes.unpublished}
-            >
-              {data.publish ? "published" : "unpublished"}
-            </span>
-          </StyledTableCell> */}
+            <StyledTableCell>
+              <span
+                className={
+                  data.publish ? classes.published : classes.unpublished
+                }
+              >
+                {data.publish ? "published" : "unpublished"}
+              </span>
+            </StyledTableCell>
             <StyledTableCell align="right">
               <MenuDropDown
                 menuTitle={menuTitle}
                 publish={data.publish}
                 toggleState={true}
-                publishHandler={() => publishHandler(data.publish)}
-                previewHandler={() => editHandler(data.id, data.content)}
+                publishHandler={() => publishHandler({ type: "translation" })}
+                previewHandler={() =>
+                  editHandler(data.id, data.content, "type")
+                }
                 deleteHandler={() => deleteHandler(data.id)}
               />
             </StyledTableCell>
           </TableRow>
         ))}
       </TableBody>
-      <Button variant="outlined"> Create Interpretation </Button>
+      <Modal modalTitle="Add Translation" closeModal={closeModal}>
+        <UpdateForm
+          CreateProverbAction={createAction}
+          createAction={createAction}
+          updateType="translation"
+        />
+      </Modal>
     </>
   );
 };
@@ -123,4 +146,4 @@ Tranlation.proptype = {
   tableHeader: Proptypes.object.isRequired,
 };
 
-export default Tranlation;
+export default withRouter(Tranlation);

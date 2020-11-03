@@ -1,8 +1,16 @@
-import React from "react";
-import {connect} from 'react-redux'
+import React, { useEffect } from "react";
+// import {withRouter} from 'react-dom'
+import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core";
 import ProverbContent from "./proverbContent";
 import EditProverb from "./editProverb";
+import {
+  UpdateProverbProp,
+  CreateProverbProp,
+  DeleteProverbProp,
+  PublishProverbProp,
+  ActivateProverb,
+} from "../../../../Redux/Actions/ProverbActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,12 +21,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PreviewProverb = ({proverbs: {activeProverb}}) => {
+const PreviewProverb = ({
+  proverbs: { activeProverb},
+  DeleteProverbProp,
+  UpdateProverb,
+  CreateProverbProp,
+  ActivateProverb,
+  match
+}) => {
+  let id = match.params.id
+  useEffect(() => {
+    ActivateProverb(id)
+    console.log(id)
+  }, [ActivateProverb, id]);
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <EditProverb content={activeProverb} />
-      <ProverbContent content={activeProverb} />
+      {/* <EditProverb content={activeProverb} />
+      <ProverbContent
+        content={activeProverb}
+        publishHandler={PublishProverbProp}
+        editHandler={UpdateProverb}
+        deleteHandler={DeleteProverbProp}
+        createActionHandler={CreateProverbProp}
+      /> */}
     </div>
   );
 };
@@ -27,4 +53,10 @@ const mapStateToProps = (state) => ({
   proverbs: state.proverbs,
 });
 
-export default connect(mapStateToProps) (PreviewProverb);
+export default connect(mapStateToProps, {
+  DeleteProverbProp,
+  UpdateProverbProp,
+  PublishProverbProp,
+  CreateProverbProp,
+  ActivateProverb,
+})(PreviewProverb);

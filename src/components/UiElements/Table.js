@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   marginBtn: {
-    marginBottom: theme.spacing(1)
+    marginBottom: theme.spacing(1.7)
   }
 }));
 

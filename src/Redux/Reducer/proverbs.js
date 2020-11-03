@@ -18,18 +18,34 @@ export default function (state = initialState, action) {
       case types.CREATE_PROVERB:
       return {
         ...state,
-        // proverbs: [payload.data,...state.proverbs],
+        proverbs: [payload.data,...state.proverbs],
         loading: false,
       };
 
       case types.ACTIVE_PROVERB:
-      const activeProverb = state.proverbs.find(proverb=>{
+      let activeProverb = state.proverbs.find(proverb=>{
         return proverb.id === payload})
       return {
         ...state,
         activeProverb: activeProverb,
         loading: false,
       };
+
+      case types.CREATE_TRANSLATION:
+        state.activeProverb.translation.push(payload)
+        return {
+          ...state,
+          activeProverb:{...state.activeProverb } ,
+          loading: false,
+        };
+
+        case types.CREATE_INTERPRETATION:
+        state.activeProverb.interpretation.push(payload)
+        return {
+          ...state,
+          activeProverb:{...state.activeProverb } ,
+          loading: false,
+        };
       
     default:
       return state;
