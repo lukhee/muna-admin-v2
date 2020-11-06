@@ -68,7 +68,7 @@ const CustomizedMenus = ({
   deleteHandler,
   toggleState,
   menuTitle,
-  publish
+  publish,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const classes = useStyles();
@@ -81,19 +81,16 @@ const CustomizedMenus = ({
     setAnchorEl(null);
   };
 
-  const handlePreview = () => {
+  const handlePreview = (index) => {
+    console.log(index);
     setAnchorEl(null);
-    previewHandler();
+    if (index === 0) return previewHandler();
+    deleteHandler();
   };
 
   const handlePublish = () => {
     setAnchorEl(null);
     publishHandler();
-  };
-
-  const handleDelete = () => {
-    setAnchorEl(null);
-    deleteHandler();
   };
 
   return (
@@ -117,9 +114,12 @@ const CustomizedMenus = ({
         onClose={handleClose}
       >
         {menuTitle &&
-          menuTitle.map((data) => (
+          menuTitle.map((data, index) => (
             <StyledMenuItem key={data.id}>
-              <ListItemText onClick={handlePreview} secondary={data.title} />
+              <ListItemText
+                onClick={() => handlePreview(index)}
+                secondary={data.title}
+              />
             </StyledMenuItem>
           ))}
         {toggleState && (

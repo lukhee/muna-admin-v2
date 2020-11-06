@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { makeStyles, Grid, Typography, Paper, Box } from "@material-ui/core";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
+import MenuBookTwoToneIcon from '@material-ui/icons/MenuBookTwoTone';
 import { Button } from "../../../UiElements";
 import { EditForm } from "./widget";
 
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     float: "right",
   },
   items: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(2.7),
   },
 }));
 
@@ -42,7 +43,7 @@ const EditProverb = ({ content }) => {
     <Grid container spacing={2} className={classes.root}>
       <Grid item xm={12} sm={4} m="auto">
         <Paper className={classes.items}>
-          <LibraryBooksIcon />
+          <MenuBookTwoToneIcon />
         </Paper>
       </Grid>
       {content && (

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
 import { makeStyles, Box } from "@material-ui/core";
@@ -10,7 +10,7 @@ import {
   FetchProverb,
   CreateProverbAction,
   DeleteProverb,
-  ActivateProverb
+  ActivateProverb,
 } from "../../../Redux/Actions/ProverbActions";
 
 const useStyles = makeStyles((theme) => ({
@@ -43,6 +43,7 @@ const Proverbs = ({
   ActivateProverb,
   proverbs: { loading, proverbs, ...rest },
 }) => {
+  const [closeModal, setModal] = useState(false);
   useEffect(() => {
     FetchProverb();
   }, [FetchProverb]);
@@ -50,25 +51,27 @@ const Proverbs = ({
 
   const publishHandler = (publish) => {
     console.log(publish);
+    alert('Publish API is progress ...')
   };
 
   const previewHandler = (id) => {
     // ActivateProverb(id, history)
-  history.push(`/admin/proverbs/${id}`);
+    history.push(`/admin/proverbs/${id}`);
   };
 
-  const deleteHandler = (id) => {
-    DeleteProverb(id);
+  const createAction = (data) => {
+    setModal(!closeModal);
+    CreateProverbAction(data);
   };
 
   return (
     <Page className={classes.root} title="Proverbs">
       <Box className={classes.tableField}>
         <Box className={classes.addProverb}>
-          <Modal modalTitle="Add Proverb">
+          <Modal modalTitle="Add Proverb" closeModal={closeModal}>
             <CreateProverb
               classes={classes}
-              CreateProverbAction={CreateProverbAction}
+              CreateProverbAction={createAction}
             />
           </Modal>
         </Box>
@@ -79,8 +82,8 @@ const Proverbs = ({
             <ProverbTable
               proverbs={proverbs}
               publishHandler={(publish) => publishHandler(publish)}
-              previewHandler={(id) => previewHandler(id)}
-              deleteHandler={(id) => deleteHandler(id)}
+              previewHandler={(id) => history.push(`/admin/proverbs/${id}`)}
+              deleteHandler={(id) => DeleteProverb(id)}
             />
           )}
         </Box>
@@ -103,6 +106,5 @@ export default connect(mapStateToProps, {
   FetchProverb,
   CreateProverbAction,
   DeleteProverb,
-  ActivateProverb
+  ActivateProverb,
 })(Proverbs);
- 

@@ -23,13 +23,19 @@ export default function (state = initialState, action) {
       };
 
       case types.ACTIVE_PROVERB:
-      let activeProverb = state.proverbs.find(proverb=>{
-        return proverb.id === payload})
       return {
         ...state,
-        activeProverb: activeProverb,
+        activeProverb: payload,
         loading: false,
       };
+
+      case types.DELETE_PROVERB:
+      return {
+        ...state,
+        laoding: false,
+        proverb: state.proverbs.filter(proverb=> proverb.id !== payload)
+
+      }
 
       case types.CREATE_TRANSLATION:
         state.activeProverb.translation.push(payload)

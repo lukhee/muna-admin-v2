@@ -22,29 +22,35 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PreviewProverb = ({
-  proverbs: { activeProverb},
+  proverbs: { activeProverb, loading },
   DeleteProverbProp,
   UpdateProverb,
   CreateProverbProp,
   ActivateProverb,
-  match
+  match,
 }) => {
-  let id = match.params.id
+  let id = match.params.id;
   useEffect(() => {
-    ActivateProverb(id)
-    console.log(id)
+    ActivateProverb(id);
+    console.log(id);
   }, [ActivateProverb, id]);
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      {/* <EditProverb content={activeProverb} />
-      <ProverbContent
-        content={activeProverb}
-        publishHandler={PublishProverbProp}
-        editHandler={UpdateProverb}
-        deleteHandler={DeleteProverbProp}
-        createActionHandler={CreateProverbProp}
-      /> */}
+      {activeProverb ? (
+        <>
+          <EditProverb content={activeProverb} />
+          <ProverbContent
+            content={activeProverb}
+            publishHandler={PublishProverbProp}
+            editHandler={UpdateProverb}
+            deleteHandler={DeleteProverbProp}
+            createActionHandler={CreateProverbProp}
+          />
+        </>
+      ) : (
+        <h1>Loading...</h1>
+      )}
     </div>
   );
 };

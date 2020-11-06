@@ -31,7 +31,7 @@ const user = {
 
 const items = [
   {
-    href: '/admin/dashboard',
+    href: '/admin',
     icon: BarChartIcon,
     title: 'Dashboard'
   },
@@ -65,11 +65,11 @@ const items = [
     icon: UserPlusIcon,
     title: 'Register'
   },
-  {
-    href: '/admin/test_component',
-    icon: UserPlusIcon,
-    title: 'Test_component'
-  },
+  // {
+  //   href: '/admin/test_component',
+  //   icon: UserPlusIcon,
+  //   title: 'Test_component'
+  // },
 ];
 
 const useStyles = makeStyles(() => ({

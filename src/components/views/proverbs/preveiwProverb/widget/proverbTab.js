@@ -71,7 +71,7 @@ export default function SimpleTabs({
           aria-label="simple tabs example"
         >
           {titles.map((title) => (
-            <Tab label={title.value} {...a11yProps(title.id)} />
+            <Tab key={title.value} label={title.value} {...a11yProps(title.id)} />
           ))}
         </Tabs>
       </AppBar>

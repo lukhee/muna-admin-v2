@@ -2,7 +2,7 @@ import * as type from "./actionContents";
 import { SetAlert } from "./AlertAction";
 import axios from "axios";
 import API from "../../components/Util/API";
-const token = "9da32168db668794fc9125b0b47b0840db5e236b";
+const token = "5d7f4e9acfab25293b08298aa676495fdfb430c4";
 
 export const FetchProverb = () => async (dispatch) => {
   try {
@@ -17,41 +17,35 @@ export const FetchProverb = () => async (dispatch) => {
   }
 };
 
-export const CreateProverbAction = (proverbData, history) => async (
-  dispatch
-) => {
+export const CreateProverbAction = (proverbData) => async (dispatch) => {
+
+  try {
+    const result = await API.post("/proverb/", proverbData, {headers: { 'Authorization': `token ${token}` }});
+    console.log(result); 
+    dispatch({
+      type: type.CREATE_PROVERB,
+    });
+    
+    // set alert if successu
+    dispatch(SetAlert({ successType: true, alertMsg: "proverb added" }));
+  } catch (error) {
+    if(error.message === 'Network request failed') return alert('network down please try again')
+    console.log(`😱 Axios request failed: ${error.message}`);
+    // console.log(error.request.status )
+  }
+};
+export const DeleteProverb = (proverbID) => async (dispatch) => {
   axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
   axios.defaults.xsrfCookieName = "csrftoken";
   axios.defaults.headers = {
     "Content-Type": "application/json",
     Authorization: `Token ${token}`,
   };
-
   try {
-    await API.post("/proverbs/proverb", proverbData);
+    await API.delete(`/proverb/${proverbID}`);
 
     dispatch({
-      type: type.CREATE_PROVERB,
-    });
-
-    // fetch immediately new proverb added
-    FetchProverb();
-
-    // set alert if successu
-    dispatch(SetAlert({ successType: true, alertMsg: "proverb added" }));
-  } catch (error) {
-    console.log(`😱 Axios request failed: ${error.message}`);
-  }
-};
-
-export const DeleteProverb = (proverbID) => async (dispatch) => {
-  try {
-    await axios.delete(
-      "https://munaproverb.herokuapp.com/api/proverbs/proverbs/"
-    );
-
-    dispatch({
-      type: type.FETCH_PROVERBS,
+      type: type.DELETE_PROVERB,
       payoad: proverbID,
     });
 
@@ -69,12 +63,11 @@ export const ActivateProverb = (proverbID) => async (dispatch) => {
     Authorization: `Token ${token}`,
   };
   try {
-    const result = await API.get(`/proverb/${proverbID}`);
-    console.log(result)
-    // dispatch({
-    //   type: type.ACTIVE_PROVERB,
-    //   payload: proverbID,
-    // });
+    const result = await API.get(`/proverbs/${proverbID}`);
+    dispatch({
+      type: type.ACTIVE_PROVERB,
+      payload: result.data,
+    });
   } catch (error) {
     console.log(`😱 Axios request failed: ${error.message}`);
   }

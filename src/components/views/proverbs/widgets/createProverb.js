@@ -6,31 +6,31 @@ import {formValidation} from "../../../helperFunction";
 
 const languageData = [
   {
-    value: "yoruba",
-    label: "Yoruba",
+    value: 1,
+    label: "Hausa",
   },
   {
-    value: "igbo",
+    value: 2,
     label: "Igbo",
   },
   {
-    value: "hausa",
-    label: "Hausa",
+    value: 3,
+    label: "Yoruba",
   },
 ];
 
 const categoryData = [
   {
-    value: "love",
-    label: "Love",
+    value: 1,
+    label: "Advice",
   },
   {
-    value: "tragic",
-    label: "Tragic",
+    value: 2,
+    label: "Instruction",
   },
   {
-    value: "affection",
-    label: "Affection",
+    value: 3,
+    label: "Warning",
   },
 ];
 
@@ -45,15 +45,16 @@ const useStyles = makeStyles((theme) => ({
 const CreateProverb = ({CreateProverbAction, history}) => {
   const [formData, setForm] = useState({
     content: "",
-    language: "",
+    ethnic: "",
     category: "",
+    publish: false
   });
   const [validationErrors, setValidationErrors] = useState({
     proverbError: '',
-    languageError: '',
+    ethnicError: '',
     category: '',
   })
-  const { content, language, category } = formData;
+  const { content, ethnic, category } = formData;
 
   const handleChange = (event) => {
     setForm({
@@ -91,11 +92,11 @@ const CreateProverb = ({CreateProverbAction, history}) => {
         <Grid item xs={12} md={6}>
           <FormControl className={classes.selectField}>
             <UiTextField
-              id="language"
-              name="language"
+              id="ethnic"
+              name="ethnic"
               select
-              label="Your Ethnic"
-              value={language}
+              label="Ethnic"
+              value={ethnic}
               onChange={handleChange}
               helperText="Please select language"
               variant="outlined"
@@ -115,7 +116,7 @@ const CreateProverb = ({CreateProverbAction, history}) => {
               name="category"
               select
               size='small'
-              label="Your Category"
+              label="Category"
               value={category}
               onChange={handleChange}
               helperText="Please select category"

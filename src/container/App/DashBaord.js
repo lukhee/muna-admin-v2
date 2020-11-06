@@ -9,7 +9,7 @@ import NotFound from "../../components/views/error/NotFoundView";
 import Alert from "../../components/Widgets/Alert";
 
 const Application = () => {
-  const dashboardRoute = ['/admin', '/admin/dashboard']
+  const dashboardRoute = ['/admin', '/']
   return(
     <DashBoard>
       <Alert/>

@@ -21,7 +21,7 @@ const App = () => {
           <GlobalStyles />
           <Switch>
             <Route path="/auth" render={(props) => <MainLayout {...props} />} />
-            <Route path="/admin" render={(props) => <DashBaord {...props} />} />
+            <Route path="/" render={(props) => <DashBaord {...props} />} />
             <Route path="*">
               <Redirect to="/404" />
             </Route>
