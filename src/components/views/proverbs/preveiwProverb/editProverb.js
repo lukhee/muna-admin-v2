@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles, Grid, Typography, Paper, Box } from "@material-ui/core";
-import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
-import MenuBookTwoToneIcon from '@material-ui/icons/MenuBookTwoTone';
+import MenuBookTwoToneIcon from "@material-ui/icons/MenuBookTwoTone";
 import { Button } from "../../../UiElements";
 import { EditForm } from "./widget";
 
@@ -25,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     "& svg": {
       width: "100%",
       fontSize: "4rem",
-      color: theme.palette.text.secondary
+      color: theme.palette.text.secondary,
     },
   },
   submitButton: {
@@ -36,9 +35,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EditProverb = ({ content }) => {
-  const [edit, SetEdit] = useState(false);
+const EditProverb = ({ content, submitUpdate }) => {
+  const [edit, SetEdit] = useState(false); 
   const classes = useStyles();
+  const UpdateHandler = (data, id) =>{
+    submitUpdate(data, id)
+    SetEdit(!edit)
+  }
   return (
     <Grid container spacing={2} className={classes.root}>
       <Grid item xm={12} sm={4} m="auto">
@@ -52,7 +55,11 @@ const EditProverb = ({ content }) => {
             {!edit ? (
               <ShowProverb ShowEdit={() => SetEdit(!edit)} content={content} />
             ) : (
-              <EditForm cancelEdit={() => SetEdit(!edit)} content={content.content} />
+              <EditForm
+                cancelEdit={() => SetEdit(!edit)}
+                content={content}
+                submit={(data, id)=>UpdateHandler(data, id)}
+              />
             )}
           </Paper>
         </Grid>

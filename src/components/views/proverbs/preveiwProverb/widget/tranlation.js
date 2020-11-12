@@ -87,9 +87,9 @@ const Tranlation = ({
   const [closeModal, setModal] = useState(false);
   const classes = useStyles();
 
-  const createAction = (data) => {
+  const createAction = (data, updateType = 'translation') => {
     setModal(!closeModal);
-    createActionHandler({...data, proverb: match.params.id});
+    createActionHandler({...data.formData, proverb: match.params.id}, updateType );
   };
 
   return (
@@ -124,7 +124,7 @@ const Tranlation = ({
                 previewHandler={() =>
                   editHandler(data.id, data.content, "type")
                 }
-                deleteHandler={() => deleteHandler(data.id)}
+                deleteHandler={() => deleteHandler(data.id, {updateType:'translation'})}
               />
             </StyledTableCell>
           </TableRow>
@@ -132,9 +132,9 @@ const Tranlation = ({
       </TableBody>
       <Modal modalTitle="Add Translation" closeModal={closeModal}>
         <UpdateForm
-          CreateProverbAction={createAction}
-          createAction={createAction}
-          updateType="translation"
+          // CreateProverbAction={createAction}
+          createAction={(data)=>createAction(data)}
+          updateType="Translation"
         />
       </Modal>
     </>

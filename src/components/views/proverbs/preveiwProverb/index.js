@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core";
 import ProverbContent from "./proverbContent";
 import EditProverb from "./editProverb";
 import {
+  UpdateProverb,
   UpdateProverbProp,
   CreateProverbProp,
   DeleteProverbProp,
@@ -32,20 +33,19 @@ const PreviewProverb = ({
   let id = match.params.id;
   useEffect(() => {
     ActivateProverb(id);
-    console.log(id);
   }, [ActivateProverb, id]);
+
   const classes = useStyles();
   return (
     <div className={classes.root}>
       {activeProverb ? (
         <>
-          <EditProverb content={activeProverb} />
+          <EditProverb content={activeProverb} submitUpdate={UpdateProverb} />
           <ProverbContent
             content={activeProverb}
             publishHandler={PublishProverbProp}
-            editHandler={UpdateProverb}
             deleteHandler={DeleteProverbProp}
-            createActionHandler={CreateProverbProp}
+            createActionHandler={(data, id)=>CreateProverbProp(data, id)}
           />
         </>
       ) : (
@@ -62,6 +62,7 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   DeleteProverbProp,
   UpdateProverbProp,
+  UpdateProverb,
   PublishProverbProp,
   CreateProverbProp,
   ActivateProverb,

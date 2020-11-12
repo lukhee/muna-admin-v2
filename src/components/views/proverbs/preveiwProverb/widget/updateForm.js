@@ -32,8 +32,9 @@ const UpdateForm = ({ createAction, updateType, proverbId }) => {
   const [formData, setForm] = useState({
     content: "",
     language: "",
+    publish: false,
   });
-  const [validationErrors, setValidationErrors] = useState({
+  const [ setValidationErrors] = useState({
     proverbError: "",
     languageError: "",
     category: "",
@@ -45,13 +46,13 @@ const UpdateForm = ({ createAction, updateType, proverbId }) => {
       ...formData,
       [event.target.name]: event.target.value,
     });
-  };
+  }; 
 
   const submitForm = (event) => {
     event.preventDefault();
     const error = formValidation(formData);
     if (error) return setValidationErrors();
-    createAction({formData, updateType});
+    createAction({formData});
   };
 
   const classes = useStyles();

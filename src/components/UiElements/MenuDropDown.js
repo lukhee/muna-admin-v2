@@ -82,7 +82,6 @@ const CustomizedMenus = ({
   };
 
   const handlePreview = (index) => {
-    console.log(index);
     setAnchorEl(null);
     if (index === 0) return previewHandler();
     deleteHandler();

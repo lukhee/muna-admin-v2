@@ -8,7 +8,6 @@ export default function (state = initialState, action) {
     case types.SET_ALERT:
       return {
         ...payload,
-        closeModal: true,
       };
     case types.REMOVE_ALERT:
       return null;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Modal, MenuDropDown, Tab } from "../UiElements";
+import { Button, Modal, MenuDropDown } from "../UiElements";
 
 const testCompoenent = () => {
   return (

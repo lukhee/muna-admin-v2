@@ -54,10 +54,9 @@ const Proverbs = ({
     alert('Publish API is progress ...')
   };
 
-  const previewHandler = (id) => {
-    // ActivateProverb(id, history)
-    history.push(`/admin/proverbs/${id}`);
-  };
+  // const previewHandler = (id) => {
+  //   history.push(`/admin/proverbs/${id}`);
+  // };
 
   const createAction = (data) => {
     setModal(!closeModal);
@@ -76,7 +75,7 @@ const Proverbs = ({
           </Modal>
         </Box>
         <Box className={classes.table}>
-          {loading ? (
+          {loading && proverbs === null ? (
             <h1> Loading... </h1>
           ) : (
             <ProverbTable

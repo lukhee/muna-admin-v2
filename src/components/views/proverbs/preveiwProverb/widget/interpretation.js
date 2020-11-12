@@ -9,7 +9,6 @@ import {
   Modal,
 } from "../../../../UiElements";
 import { UpdateForm } from "../widget";
-import { TramRounded } from "@material-ui/icons";
 
 const menuTitle = [
   {
@@ -35,7 +34,6 @@ const tableHeader = [
     id: 3,
     value: "Language",
   },
-  ,
   {
     id: 4,
     title: "Status",
@@ -87,9 +85,9 @@ const Interpretation = ({
   const [closeModal, setModal] = useState(false);
   const classes = useStyles();
 
-  const createAction = (data) => {
+  const createAction = (data, updateType = 'interpretation') => {
     setModal(!closeModal);
-    createActionHandler({...data, proverb: match.params.id});
+    createActionHandler({...data.formData, proverb: match.params.id}, updateType);
   };
 
   return (
@@ -124,7 +122,7 @@ const Interpretation = ({
                   publishHandler({ type: "interpretation" })
                 }
                 previewHandler={() => editHandler(data.id, data.content)}
-                deleteHandler={() => deleteHandler(data.id)}
+                deleteHandler={() => deleteHandler(data.id, {updateType:'interpretation'})}
               />
             </StyledTableCell>
           </TableRow>
@@ -132,7 +130,7 @@ const Interpretation = ({
       </TableBody>
       <Modal modalTitle="Add Interpretation" closeModal={closeModal}>
         <UpdateForm
-          createAction={createAction}
+          createAction={(data)=>createAction(data)}
           updateType="interpretation"
         />
       </Modal>

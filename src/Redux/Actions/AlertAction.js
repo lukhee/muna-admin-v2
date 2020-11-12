@@ -10,7 +10,7 @@ export const SetAlert = (alertData) => (dispatch) => {
 
     setTimeout(() => dispatch({
         type: type.REMOVE_ALERT,
-    }), 5000);
+    }), 7000);
 };
 
 export const RemoveAlert = () => (dispatch) => {

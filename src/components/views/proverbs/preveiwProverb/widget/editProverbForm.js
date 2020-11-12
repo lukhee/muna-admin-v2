@@ -9,16 +9,16 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(3),
     padding: theme.spacing(2),
   },
-  // submitButton: {
-  //   float: "right",
-  // },
 }));
 
-const EditProverbForm = ({ cancelEdit, content }) => {
+const EditProverbForm = ({ cancelEdit, content, submit }) => {
   const [Error, setValidationErrors] = useState(false);
 
   const [formData, setForm] = useState({
-    content: content,
+    content: content.content,
+    category: [content.category[0].id],
+    ethnic: content.ethnic.id,
+    publish: content.publish
   });
 
   const classes = useStyles();
@@ -34,6 +34,7 @@ const EditProverbForm = ({ cancelEdit, content }) => {
     event.preventDefault();
     const error = formValidation(formData);
     if (error) return setValidationErrors(true);
+    submit(formData, content.id)
   };
   return (
     <form onSubmit={onSubmit}>

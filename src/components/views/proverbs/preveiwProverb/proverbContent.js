@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, Grid, Typography, Paper, Box } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import { ProverbTab } from "./widget";
 
 const tabTitle = [

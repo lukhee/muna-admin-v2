@@ -46,10 +46,10 @@ const CreateProverb = ({CreateProverbAction, history}) => {
   const [formData, setForm] = useState({
     content: "",
     ethnic: "",
-    category: "",
+    category: [],
     publish: false
   });
-  const [validationErrors, setValidationErrors] = useState({
+  const [setValidationErrors] = useState({
     proverbError: '',
     ethnicError: '',
     category: '',
@@ -67,6 +67,7 @@ const CreateProverb = ({CreateProverbAction, history}) => {
     event.preventDefault();
     const error = formValidation(formData);
     if(error) return setValidationErrors()
+    console.log(formData)
     CreateProverbAction(formData, history)
   };
 
