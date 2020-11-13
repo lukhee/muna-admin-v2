@@ -122,7 +122,9 @@ const Interpretation = ({
                   publishHandler({ type: "interpretation" })
                 }
                 previewHandler={() => editHandler(data.id, data.content)}
-                deleteHandler={() => deleteHandler(data.id, {updateType:'interpretation'})}
+                deleteHandler={() => alert('in production')
+                  // deleteHandler(data.id, {updateType:'interpretation'})
+              }
               />
             </StyledTableCell>
           </TableRow>

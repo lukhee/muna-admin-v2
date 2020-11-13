@@ -121,8 +121,8 @@ const Tranlation = ({
                 publish={data.publish}
                 toggleState={true}
                 publishHandler={() => publishHandler({ type: "translation" })}
-                previewHandler={() =>
-                  editHandler(data.id, data.content, "type")
+                previewHandler={() => alert('in production')
+                  // editHandler(data.id, data.content, "type")
                 }
                 deleteHandler={() => deleteHandler(data.id, {updateType:'translation'})}
               />
