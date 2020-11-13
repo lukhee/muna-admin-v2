@@ -78,7 +78,7 @@ const Proverbs = ({
           {loading && proverbs === null ? (
             <h1> Loading... </h1>
           ) : (
-            <ProverbTable
+            <ProverbTablegit status
               proverbs={proverbs}
               publishHandler={(publish) => publishHandler(publish)}
               previewHandler={(id) => history.push(`/admin/proverbs/${id}`)}
