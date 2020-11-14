@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import clsx from "clsx";
-import { makeStyles, Box } from "@material-ui/core";
+import { makeStyles, Box, Typography } from "@material-ui/core";
 import DoneAllIcon from "@material-ui/icons/DoneAll";
 import ClearIcon from "@material-ui/icons/Clear";
 
@@ -51,7 +51,16 @@ const Alert = ({ alert }) => {
           >
             {alert.successType ? <DoneAllIcon /> : <ClearIcon />}
           </Box>
-          <Box my="auto" p={1}>{alert.alertMsg}</Box>
+          <Box my="auto" pr={2}>
+          
+        <Typography
+          className={classes.name}
+          color="textPrimary"
+          variant="h5"
+        >
+          {alert.alertMsg}
+        </Typography>
+          </Box>
         </Box>
       </div>
     )
