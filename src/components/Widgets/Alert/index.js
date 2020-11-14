@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
   },
   alert: {
-    borderRadius: theme.spacing(1),
+    borderRadius: theme.spacing(2),
     position: "absolute",
     left: "50%",
     transform: "translate(-50%, -50%)",
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     marginRight: theme.spacing(1),
     padding: theme.spacing(1),
-    borderRadius: theme.spacing(0.5, 0, 0, 0.5),
+    // borderRadius: theme.spacing(0.5, 0, 0, 0.5),
     color: theme.palette.background.default,
   },
   successColor: {
@@ -42,7 +42,7 @@ const Alert = ({ alert }) => {
   return (
     alert !== null && (
       <div className={classes.root}>
-        <Box className={classes.alert} boxShadow={2} display="flex">
+        <Box className={classes.alert} boxShadow={3} display="flex">
           <Box
             className={clsx(
               classes.symbol,
