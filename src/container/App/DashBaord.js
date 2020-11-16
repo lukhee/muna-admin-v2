@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import DashBoard from "../../components/layout/DashBoardLayout";
 import DashboardView from "../../components/views/dashboard";
 import Proverbs from "../../components/views/proverbs";
@@ -9,9 +9,18 @@ import NotFound from "../../components/views/error/NotFoundView";
 import Alert from "../../components/Widgets/Alert";
 
 const Application = () => {
-  const dashboardRoute = ['/admin', '/']
+  const dashboardRoute = ['/admin', '/'];
+
+  let redirectToUrl;
+  const token = localStorage.getItem('token');
+  if ((token == undefined) || (token == null)){
+    redirectToUrl = <Redirect to="/auth/login"/>;
+  }
+
+
   return(
     <DashBoard>
+      {redirectToUrl}
       <Alert/>
       <Switch>
         <Route exact path={dashboardRoute} component={DashboardView} />
