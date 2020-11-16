@@ -14,6 +14,8 @@ const menuTitle = [
   {
     id: "1M",
     title: "Edit",
+    modal: true,
+    modalTitle: 'Create'
   },
   {
     id: "2M",
@@ -90,6 +92,19 @@ const Interpretation = ({
     createActionHandler({...data.formData, proverb: match.params.id}, updateType);
   };
 
+  const UpdateTransaltion = (data, id) => {
+    setModal(!closeModal);
+    editHandler({...data, translationId: id, updateType:"interpretaion"})
+  }
+
+  const ModalChildComponent = (value, id) => {
+    return (
+      <> 
+        <UpdateForm closeModal={closeModal} updateType="Interpretation" createAction={(data)=>UpdateTransaltion(data, id)} defaultValue={value} />
+      </>
+    )
+  }
+
   return (
     <>
       <TableBody
@@ -121,11 +136,11 @@ const Interpretation = ({
                 publishHandler={() =>
                   publishHandler({ type: "interpretation" })
                 }
-                previewHandler={() => editHandler(data.id, data.content)}
-                deleteHandler={() => alert('in production')
-                  // deleteHandler(data.id, {updateType:'interpretation'})
-              }
-              />
+                // previewHandler={() => alert('in production')}
+                deleteHandler={() => deleteHandler(data.id, {updateType:'interpretation'})}
+              >
+                <ModalChildComponent initialParams={data} id={data}/>
+              </MenuDropDown>
             </StyledTableCell>
           </TableRow>
         ))}

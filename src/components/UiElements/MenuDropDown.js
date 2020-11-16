@@ -4,6 +4,7 @@ import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { Menu, MenuItem, ListItemText } from "@material-ui/core";
 import { ExpandMore as ArrowDropDownIcon } from "@material-ui/icons";
 import Button from "./Button";
+import Modal from './Modal'
 
 const StyledMenu = withStyles({
   paper: {
@@ -69,6 +70,9 @@ const CustomizedMenus = ({
   toggleState,
   menuTitle,
   publish,
+  // modal properties
+  children,
+  closeModal
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const classes = useStyles();
@@ -91,7 +95,6 @@ const CustomizedMenus = ({
     setAnchorEl(null);
     publishHandler();
   };
-
   return (
     <div className={classes.root}>
       <Button
@@ -115,10 +118,19 @@ const CustomizedMenus = ({
         {menuTitle &&
           menuTitle.map((data, index) => (
             <StyledMenuItem key={data.id}>
-              <ListItemText
+              {data.modal? (
+                <ListItemText 
+                onClick={() => handleClose(index)}>
+                <Modal modalTitle={data.modalTitle} closeModal={closeModal}>
+                  {children}
+                </Modal>
+                </ListItemText>
+              ) : 
+              (<ListItemText
                 onClick={() => handlePreview(index)}
                 secondary={data.title}
-              />
+              />)
+            }
             </StyledMenuItem>
           ))}
         {toggleState && (

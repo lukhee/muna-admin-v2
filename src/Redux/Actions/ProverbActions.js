@@ -1,6 +1,5 @@
 import * as type from "./actionContents";
 import { SetAlert } from "./AlertAction";
-import axios from "axios";
 import API from "../../components/Util/API";
 
 const token = "5d7f4e9acfab25293b08298aa676495fdfb430c4";
@@ -118,21 +117,17 @@ export const CreateProverbProp = (data, updateType) => async (
 
 // @Describ  Update Translation/interpretation
 // RequestType Post
-export const UpdateProverbProp = (data) => async (dispatch) => {
-  console.log(data);
-  axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-  axios.defaults.xsrfCookieName = "csrftoken";
-  axios.defaults.headers = {
-    "Content-Type": "application/json",
-    Authorization: `Token ${token}`,
-  };
-
-  try {await API.put("/translation", data);
+export const UpdateProverbProp = ({formData, updateId, updateType}, proverb) => async (dispatch) => {
+  const newData = {...formData, proverb: proverb}
+  try {
+     API.put(`/${updateType}/${updateId}/`, newData, config);
     dispatch({
       type: type.UPDATE_TRANSLATION,
     });
   } catch (error) {
-    console.log(`😱 Axios request failed: ${error.message}`);
+    if(error.message === 'Network Error') return
+    dispatch(SetAlert({ successType: true, alertMsg: "Network Down, Try Again.!" }));
+    dispatch(SetAlert({ successType: false, alertMsg: "Update Failed!" }));
   }
 };
 
