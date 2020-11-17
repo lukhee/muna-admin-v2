@@ -33,6 +33,7 @@ const StyledMenu = withStyles({
 const StyledMenuItem = withStyles((theme) => ({
   root: {
     textTransform: "capitalize",
+    textAlign: 'center',
     borderBottom: "1px solid #3f51b50a",
     "&:focus": {
       // backgroundColor: "grey",

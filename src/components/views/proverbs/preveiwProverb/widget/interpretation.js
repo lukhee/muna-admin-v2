@@ -131,7 +131,7 @@ const Interpretation = ({
             </StyledTableCell>
             <StyledTableCell align="right">
               <MenuDropDown
-              closeModal={closeModal}
+                closeModal={closeModal}
                 menuTitle={menuTitle}
                 publish={data.publish}
                 toggleState={true}

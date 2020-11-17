@@ -167,9 +167,10 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           mt={2}
         >
           <Button
+            target='_blank'
             color="primary"
             component="a"
-            href="https://localhost:3030/muna"
+            href="https://munafrontend.herokuapp.com/"
             variant="contained"
           >
             MUNA

@@ -119,9 +119,6 @@ export const CreateProverbProp = (data, updateType) => async (
 // RequestType Post
 export const UpdateProverbProp = ({formData, updateId, updateType}, proverb) => async (dispatch) => {
   const newData = {...formData, proverb: proverb}
-  console.log(formData)
-  console.log(proverb)
-  console.log(updateId)
   try {
      API.put(`/${updateType}/${updateId}/`, newData, config);
      const ACTION_TYPE = updateType === "translation"
@@ -131,6 +128,7 @@ export const UpdateProverbProp = ({formData, updateId, updateType}, proverb) => 
       type: ACTION_TYPE,
       payload: {data: formData, proverbId: proverb, updateId: updateId  }
     });
+    dispatch(SetAlert({ successType: true, alertMsg: `Update ${updateType}!` }));
   } catch (error) {
     if(error.message === 'Network Error') return
     dispatch(SetAlert({ successType: true, alertMsg: "Network Down, Try Again.!" }));
@@ -151,7 +149,7 @@ export const DeleteProverbProp = (id, {updateType}) => async (dispatch) => {
       type: ACTION_TYPE,
       payload: id
     });
-    dispatch(SetAlert({ successType: false, alertMsg: "Deleted!" }));
+    dispatch(SetAlert({ successType: false, alertMsg: `Deleted ${updateType}!` }));
   } catch (error) {
     if(error.message === 'Network Error') return
     dispatch(SetAlert({ successType: true, alertMsg: "Network Down, Try Again.!" }));
