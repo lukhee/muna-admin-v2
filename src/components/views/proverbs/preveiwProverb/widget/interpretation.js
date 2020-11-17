@@ -94,13 +94,14 @@ const Interpretation = ({
 
   const UpdateTransaltion = (data, id) => {
     setModal(!closeModal);
-    editHandler({...data, translationId: id, updateType:"interpretaion"})
+    editHandler({...data, updateId: id, updateType:"interpretation"})
   }
 
-  const ModalChildComponent = (value, id) => {
+  const ModalChildComponent = ({initialParams, id}) => {
+    console.log(id)
     return (
       <> 
-        <UpdateForm closeModal={closeModal} updateType="Interpretation" createAction={(data)=>UpdateTransaltion(data, id)} defaultValue={value} />
+        <UpdateForm closeModal={closeModal} updateType="Interpretation" createAction={(data)=>UpdateTransaltion(data, id)} defaultValue={initialParams} />
       </>
     )
   }
@@ -130,6 +131,7 @@ const Interpretation = ({
             </StyledTableCell>
             <StyledTableCell align="right">
               <MenuDropDown
+              closeModal={closeModal}
                 menuTitle={menuTitle}
                 publish={data.publish}
                 toggleState={true}
@@ -139,7 +141,7 @@ const Interpretation = ({
                 // previewHandler={() => alert('in production')}
                 deleteHandler={() => deleteHandler(data.id, {updateType:'interpretation'})}
               >
-                <ModalChildComponent initialParams={data} id={data}/>
+                <ModalChildComponent initialParams={data} id={data.id}/>
               </MenuDropDown>
             </StyledTableCell>
           </TableRow>

@@ -138,7 +138,6 @@ const Tranlation = ({
                 toggleState={true}
                 publishHandler={() => publishHandler({ type: "translation" })}
                 // previewHandler={() => alert('in production')}
-                  // editHandler(data.id, data.content, "type")
                 deleteHandler={() => deleteHandler(data.id, {updateType:'translation'})}
               >
                 <ModalChildComponent initialParams={data} id={data.id} />

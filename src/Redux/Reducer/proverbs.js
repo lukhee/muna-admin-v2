@@ -57,6 +57,38 @@ export default function (state = initialState, action) {
           loading: false,
         };
 
+        case types.UPDATE_TRANSLATION:
+          let cloneActive = state.activeProverb
+          let newActiveproverb = () => {
+            let newIndex = cloneActive.translation.findIndex(x=> x.id === payload.updateId)
+            const clonedUpdate = cloneActive.translation.find(data=> data.id === payload.updateId)
+            let newUpdate = {...clonedUpdate, ...payload.data}
+            cloneActive.translation[newIndex] = newUpdate
+            
+            return cloneActive
+          }
+         return {
+          ...state,
+          activeProverb: newActiveproverb() ,
+          loading: false,
+        };
+
+        case types.UPDATE_INTERPRETATION:
+          const cloneState = state.activeProverb
+          const newActiveProverb = () => {
+            let newIndex = cloneState.interpretation.findIndex(x=> x.id === payload.updateId)
+            const clonedUpdate = cloneState.interpretation.find(data=> data.id === payload.updateId)
+            let newUpdate = {...clonedUpdate, ...payload.data}
+            cloneState.interpretation[newIndex] = newUpdate
+            
+            return cloneState
+          }
+         return {
+          ...state,
+          activeProverb: newActiveProverb() ,
+          loading: false,
+        };
+
         case types.CREATE_INTERPRETATION:
         state.activeProverb.interpretation.push(payload)
         return {

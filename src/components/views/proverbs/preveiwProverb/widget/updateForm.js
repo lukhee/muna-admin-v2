@@ -40,7 +40,6 @@ const UpdateForm = ({ createAction, updateType, proverbId, defaultValue }) => {
   });
 
   useEffect(()=> {
-    console.log(defaultValue)
     if(defaultValue) setForm({...formData, 
       content: defaultValue.content, 
       language: defaultValue.language

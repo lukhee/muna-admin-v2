@@ -119,10 +119,17 @@ export const CreateProverbProp = (data, updateType) => async (
 // RequestType Post
 export const UpdateProverbProp = ({formData, updateId, updateType}, proverb) => async (dispatch) => {
   const newData = {...formData, proverb: proverb}
+  console.log(formData)
+  console.log(proverb)
+  console.log(updateId)
   try {
      API.put(`/${updateType}/${updateId}/`, newData, config);
+     const ACTION_TYPE = updateType === "translation"
+     ? type.UPDATE_TRANSLATION
+     : type.UPDATE_INTERPRETATION;
     dispatch({
-      type: type.UPDATE_TRANSLATION,
+      type: ACTION_TYPE,
+      payload: {data: formData, proverbId: proverb, updateId: updateId  }
     });
   } catch (error) {
     if(error.message === 'Network Error') return
