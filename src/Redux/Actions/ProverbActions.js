@@ -1,5 +1,5 @@
-import * as type from "./actionContents";
-import { SetAlert } from "./AlertAction";
+import * as type from "./actionTypes";
+import { SetAlert } from "./alertAction";
 import API from "../../components/Util/API";
 
 const token = "5d7f4e9acfab25293b08298aa676495fdfb430c4";
@@ -73,11 +73,16 @@ export const ActivateProverb = (proverbID) => async (dispatch) => {
   }
 };
 
-export const UpdateProverb = (data, id) => async (dispatch) => {
+export const UpdateProverb = (data, id, {updateType}) => async (dispatch) => {
   try {
     const result = await API.put(`/proverb/${id}/`, data, config);
+    const ACTION_TYPE = 
+    updateType === "publish"
+      ? type.PUBLISH_PROVERB
+      : type.EDIT_PROVERB;
+
     dispatch({
-      type: type.EDIT_PROVERB,
+      type: ACTION_TYPE,
       payload: {data: result.data, id: id },
     });
     

@@ -1,4 +1,4 @@
-import * as types from "../Actions/actionContents";
+import * as types from "../Actions/actionTypes";
 const initialState = {
   proverbs: null,
   activeProverb: null,
@@ -31,6 +31,21 @@ export default function (state = initialState, action) {
       return {
         ...state,
         activeProverb: updatedProverbs(payload.data),
+        loading: false,
+      };
+
+      case types.PUBLISH_PROVERB:
+        const updated = (data, id) => {
+          const clonedProverb = state.proverbs
+          const targetProverb = state.proverbs.find(data=> data.id === id)
+          const newProverb = {...targetProverb, publish: data.publish}
+          let newIndex = state.proverbs.findIndex(x=> x.id === id)
+          clonedProverb[newIndex] = newProverb
+          return clonedProverb
+        }
+      return {
+        ...state,
+        activeProverb: updated(payload.data, payload.id),
         loading: false,
       };
 

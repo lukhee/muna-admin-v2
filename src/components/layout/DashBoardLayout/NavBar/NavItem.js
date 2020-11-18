@@ -55,26 +55,7 @@ const NavItem = ({
       className={clsx(classes.item, className)}
       disableGutters
       {...rest}
-    >{
-      blankLink ?
-      <Button
-        target='_blank'
-        activeClassName={classes.active}
-        className={classes.button}
-        component={Link}
-        to={{pathname: href}}
-      >
-        {Icon && (
-          <Icon
-            className={classes.icon}
-            size="20"
-          />
-        )}
-        <span className={classes.title}>
-          {title}
-        </span>
-      </Button>
-      : 
+    >
       <Button
         activeClassName={classes.active}
         className={classes.button}
@@ -91,7 +72,6 @@ const NavItem = ({
           {title}
         </span>
       </Button>
-    }
     </ListItem>
   );
 };
