@@ -45,18 +45,20 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Table = ({ tableHeader, children, actionField }) => {
+const Table = ({ tableHeader, children, actionField, showPagination, totalCount }) => {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
+    console.log(newPage)
   };
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+    console.log("rowsperpage")
   };
 
   return (
@@ -74,16 +76,19 @@ const Table = ({ tableHeader, children, actionField }) => {
         <TableBody>{children}</TableBody>
       </UITable>
     </TableContainer>
-    {/* <TablePagination
-    rowsPerPageOptions={[10, 25]}
-    component="div"
-    // count={rows.length}
-    count={10}
-    rowsPerPage={rowsPerPage}
-    page={page}
-    onChangePage={handleChangePage}
-    onChangeRowsPerPage={handleChangeRowsPerPage}
-  /> */}
+    {
+      showPagination && (
+        <TablePagination
+          component="div"
+          rowsPerPageOptions={[5, 10]}
+          count={totalCount}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
+      )
+    }
   </>
   );
 };
@@ -94,6 +99,7 @@ Table.proptype = {
 
 Table.defaultProps = {
   actionField: false,
+  showPagination: false
 };
 
 export default Table;

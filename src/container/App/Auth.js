@@ -1,19 +1,30 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import {connect} from 'react-redux'
+import { PropTypes } from "prop-types";
+import { Switch } from "react-router-dom";
+import {PublicRuote} from "../../Routes"
 import Login from "../../components/views/auth/Login";
 import Register from "../../components/views/auth/Register";
 import NotFound from "../../components/views/error/NotFoundView";
 
-const Auth = () => {
+const Auth = ({auth: {isAuthenticated}}) => {
   const loginRoute = ["/auth", "/auth/login"];
   return (
     <Switch>
-      <Route exact path={loginRoute} component={Login} />
-      <Route path="/auth/register" component={Register} />
-      {/* <Route path={loginRoute}> <Redirect to='/auth/login'/></Route> */}
-      <Route path="*" component={NotFound} />
+      <PublicRuote exact path={loginRoute} component={Login} isAuthenticated={isAuthenticated} />
+      <PublicRuote path="/auth/register" component={Register} isAuthenticated={isAuthenticated} />
+      <PublicRuote path="*" component={NotFound} />
     </Switch>
   );
 };
 
-export default Auth;
+
+Auth.propTypes = {
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth
+})
+
+export default connect(mapStateToProps) (Auth);

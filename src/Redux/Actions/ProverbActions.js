@@ -2,8 +2,7 @@ import * as type from "./actionTypes";
 import { SetAlert } from "./alertAction";
 import API from "../../components/Util/API";
 
-const token = "5d7f4e9acfab25293b08298aa676495fdfb430c4";
-
+const token = localStorage.getItem('token')
 
 const config = {
   headers: {
@@ -13,11 +12,15 @@ const config = {
 
 export const FetchProverb = () => async (dispatch) => {
   try {
-    const data = await API.get("/proverbs/");
+    const data = await API.get("/proverbs/"); 
+    // Next pagination
+    // data.data.next
+    // previous pagination
+    // data.data.previous
 
     dispatch({
       type: type.FETCH_PROVERBS,
-      payload: { data: data.data.results },
+      payload: { data: data.data.results, proverbCount: data.data.count },
     });
   } catch (error) {
     if(error.message === 'Network Error') return dispatch(SetAlert({ successType: false, alertMsg: "Network Down, try again" }))

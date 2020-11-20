@@ -3,6 +3,7 @@ const initialState = {
   proverbs: null,
   activeProverb: null,
   loading: true,
+  totalProverb: null
 };
 
 export default function (state = initialState, action) {
@@ -13,6 +14,7 @@ export default function (state = initialState, action) {
         ...state,
         proverbs: payload.data,
         loading: false,
+        totalProverb: payload.proverbCount
       };
 
       case types.CREATE_PROVERB:

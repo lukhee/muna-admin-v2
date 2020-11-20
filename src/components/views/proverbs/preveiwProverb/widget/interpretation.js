@@ -15,7 +15,7 @@ const menuTitle = [
     id: "1M",
     title: "Edit",
     modal: true,
-    modalTitle: 'Create'
+    modalTitle: 'Edit'
   },
   {
     id: "2M",

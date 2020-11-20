@@ -1,5 +1,8 @@
 import React from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import {connect} from 'react-redux'
+import { PropTypes } from "prop-types";
+import { Switch, Redirect } from "react-router-dom";
+import {PrivateRoute} from "../../Routes"
 import DashBoard from "../../components/layout/DashBoardLayout";
 import DashboardView from "../../components/views/dashboard";
 import Proverbs from "../../components/views/proverbs";
@@ -8,28 +11,28 @@ import TestComponent from "../../components/views/testCompoenent";
 import NotFound from "../../components/views/error/NotFoundView";
 import Alert from "../../components/Widgets/Alert";
 
-const Application = () => {
+const Application = ({auth: {isAuthenticated}}) => {
   const dashboardRoute = ['/admin', '/'];
-
-  let redirectToUrl;
-  const token = localStorage.getItem('token');
-  if ((token == undefined) || (token == null)){
-    redirectToUrl = <Redirect to="/auth/login"/>;
-  }
-
-
   return(
     <DashBoard>
-      {redirectToUrl}
       <Alert/>
       <Switch>
-        <Route exact path={dashboardRoute} component={DashboardView} />
-        <Route exact path="/admin/proverbs" component={Proverbs} />
-        <Route exact path="/admin/proverbs/:id" component={PreviewProverb} />
-        <Route path="/admin/test_component" component={TestComponent} />
-        <Route path="*" component={NotFound} />
+        <PrivateRoute exact path={dashboardRoute} component={DashboardView} isAuthenticated={isAuthenticated} />
+        <PrivateRoute exact path="/admin/proverbs" component={Proverbs} isAuthenticated={isAuthenticated}  />
+        <PrivateRoute exact path="/admin/proverbs/:id" component={PreviewProverb} isAuthenticated={isAuthenticated}  />
+        <PrivateRoute path="/admin/test_component" component={TestComponent} isAuthenticated={isAuthenticated}  />
+        <PrivateRoute path="*" component={NotFound} />
       </Switch>
     </DashBoard>
   )
 };
-export default Application;
+
+Application.propTypes = {
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth
+})
+
+export default connect(mapStateToProps) (Application);

@@ -42,7 +42,7 @@ const Proverbs = ({
   CreateProverbAction,
   DeleteProverb,
   UpdateProverb,
-  proverbs: { loading, proverbs, ...rest },
+  proverbs: { loading, proverbs, totalProverb, ...rest },
 }) => {
   const [closeModal, setModal] = useState(false);
   useEffect(() => {
@@ -82,6 +82,7 @@ const Proverbs = ({
             <h1> Loading... </h1>
           ) : (
             <ProverbTable status
+              totalProverb={totalProverb}
               proverbs={proverbs}
               publishHandler={(data) => publishHandler(data)}
               previewHandler={(id) => history.push(`/admin/proverbs/${id}`)}

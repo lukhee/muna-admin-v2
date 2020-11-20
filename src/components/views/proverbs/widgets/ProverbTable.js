@@ -1,9 +1,8 @@
 import React from "react";
-// import { connect } from "react-redux";
 import Proptypes from "prop-types";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { TableCell, TableRow } from "@material-ui/core";
-import { Table as TableBody, MenuDropDown } from "../../../UiElements";
+import { Table as TableBody, MenuDropDown, Tooltips } from "../../../UiElements";
 
 const menuTitle = [
   {
@@ -68,17 +67,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProverbTable = ({ proverbs, publishHandler, previewHandler, deleteHandler }) => {
+const ProverbTable = ({ proverbs, publishHandler, previewHandler, deleteHandler, totalProverb }) => {
   const classes = useStyles();
 
   return (
-    <TableBody tableHeader={tableHeader} actionField={true}>
+    <TableBody tableHeader={tableHeader} actionField={true} showPagination={true} totalCount={totalProverb}>
       {proverbs.map((data, index) => (
         <TableRow key={data.id}>
           <StyledTableCell component="th" scope="data">
             {index + 1}
           </StyledTableCell>
-          <StyledTableCell>{data.content}</StyledTableCell>
+          <StyledTableCell>
+            <Tooltips title="Add">
+              {data.content}
+            </Tooltips>
+          </StyledTableCell>
           <StyledTableCell>{data.ethnic.language}</StyledTableCell>
           <StyledTableCell>
             <span

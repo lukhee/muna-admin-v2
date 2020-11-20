@@ -1,9 +1,9 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import LoginView from './components/views/auth/Login'
-import RegisterView from './components/views/auth/Register'
-import NotFoundView from './components/views/error/NotFoundView'
-import MainLayout from './components/layout/MainLayout'
+import LoginView from '../components/views/auth/Login'
+import RegisterView from '../components/views/auth/Register'
+import NotFoundView from '../components/views/error/NotFoundView'
+import MainLayout from '../components/layout/MainLayout'
 
 const routes = [
 //   {

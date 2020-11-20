@@ -1,8 +1,9 @@
-import * as actionTypes from '../../Actions/auth/actionTypes';
-import { updateObject } from '../../utility';
+import * as actionTypes from '../Actions/auth/actionTypes';
+import { updateObject } from '../utility';
 
 const initialState = {
     token: null,
+    isAuthenticated: false,
     error: false, 
     loading: false,
     errorMessage: ''
@@ -18,6 +19,7 @@ const authStart = (state, action) => {
 const authSuccess = (state, action) => {
     return updateObject(state, {
         token: action.token,
+        isAuthenticated: true,
         error: false,
         loading: false
     });
@@ -32,7 +34,8 @@ const authFail = (state, action) => {
 
 const authLogout = (state, action) => {
     return updateObject(state, {
-        token: null
+        token: null,
+        isAuthenticated: false
     });
 }
 

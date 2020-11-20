@@ -52,7 +52,6 @@ export const authLogin = (email, password, history) => {
             password: password
         })
         .then(res => {
-            // console.log(res.data);
             const token = res.data.token;
             const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
             localStorage.setItem('token', token);
@@ -120,4 +119,12 @@ export const authCheckState = () => {
             }
         }
     }
+}
+
+export const authLogout = (history) => dispatch=> {
+  localStorage.clear()
+  dispatch({
+    type: actionTypes.AUTH_LOGOUT,
+  })
+  history.push('/auth')
 }

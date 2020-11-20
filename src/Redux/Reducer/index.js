@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import proverbs from './proverbs';
 import alert from './alert';
-import authreducer from './auth/auth';
+import auth from './auth';
 
 export default combineReducers({
-  authreducer,
+  auth,
   proverbs,
   alert
 });
