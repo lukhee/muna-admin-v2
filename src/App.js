@@ -1,5 +1,6 @@
 import React from "react";
 import { Provider } from "react-redux";
+import * as actionTypes from './Redux/Actions/auth/actionTypes';
 import {
   BrowserRouter as Router,
   Switch,
@@ -14,6 +15,15 @@ import DashBaord from "./container/App/DashBaord";
 import store from "./Redux/store";
 
 const App = () => {
+
+  const token = localStorage.getItem('token');
+  if (token) {
+      store.dispatch({ 
+        type: actionTypes.AUTH_SUCCESS,
+        payload: token
+    });
+  }
+
   return (
     <Provider store={store}>
       <Router>

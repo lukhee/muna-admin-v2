@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     "& span": {
       padding: theme.spacing(0.3, 2),
       borderRadius: theme.spacing(1),
-      color: "#f5f5f5",
+      // color: "#f5f5f5",
       fontSize: "0.7rem",
       fontWeight: "bold",
       textTransform: "capitalize",

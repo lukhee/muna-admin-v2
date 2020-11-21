@@ -53,7 +53,6 @@ const useStyles = makeStyles((theme) => ({
     "& span": {
       padding: theme.spacing(0.7, 2),
       borderRadius: "2px",
-      color: "#f5f5f5",
       fontSize: "0.5rem",
       fontWeight: "bold",
       textTransform: "capitalize",
@@ -61,9 +60,11 @@ const useStyles = makeStyles((theme) => ({
   },
   published: {
     background: theme.palette.primary.main,
+    color: '#f5f5f5',
   },
   unpublished: {
     background: theme.palette.secondary.main,
+    color: '#f5f5f5',
   },
 }));
 
@@ -78,7 +79,7 @@ const ProverbTable = ({ proverbs, publishHandler, previewHandler, deleteHandler,
             {index + 1}
           </StyledTableCell>
           <StyledTableCell>
-            <Tooltips title="Add">
+            <Tooltips title={data.category}>
               {data.content}
             </Tooltips>
           </StyledTableCell>

@@ -70,9 +70,11 @@ const useStyles = makeStyles((theme) => ({
   },
   published: {
     background: theme.palette.primary.main,
+    color: '#f5f5f5',
   },
   unpublished: {
     background: theme.palette.secondary.main,
+    color: '#f5f5f5',
   },
 }));
 

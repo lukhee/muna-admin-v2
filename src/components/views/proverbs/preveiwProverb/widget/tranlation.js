@@ -71,9 +71,11 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
   },
   published: {
+    color: '#f5f5f5',
     background: theme.palette.primary.main,
   },
   unpublished: {
+    color: '#f5f5f5',
     background: theme.palette.secondary.main,
   },
 }));
