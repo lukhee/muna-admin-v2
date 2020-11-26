@@ -42,11 +42,13 @@ const Proverbs = ({
   CreateProverbAction,
   DeleteProverb,
   UpdateProverb,
-  proverbs: { loading, proverbs, totalProverb, ...rest },
+  proverbs: { loading, pageIndex, proverbs, totalProverb, ...rest },
 }) => {
   const [closeModal, setModal] = useState(false);
   useEffect(() => {
-    FetchProverb();
+    const page = 1
+    const pageIndex = 1
+    FetchProverb(page, pageIndex);
   }, [FetchProverb]);
   const classes = useStyles();
 
@@ -82,7 +84,10 @@ const Proverbs = ({
             <h1> Loading... </h1>
           ) : (
             <ProverbTable status
+              fetchProverb={FetchProverb}
               totalProverb={totalProverb}
+              pageIndex={pageIndex}
+              loading={loading}
               proverbs={proverbs}
               publishHandler={(data) => publishHandler(data)}
               previewHandler={(id) => history.push(`/admin/proverbs/${id}`)}

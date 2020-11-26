@@ -12,12 +12,12 @@ import NotFound from "../../components/views/error/NotFoundView";
 import Alert from "../../components/Widgets/Alert";
 
 const Application = ({auth: {isAuthenticated}}) => {
-  const dashboardRoute = ['/admin', '/'];
+  // const dashboardRoute = ['/admin', '/'];
   return(
     <DashBoard>
       <Alert/>
       <Switch>
-        <PrivateRoute exact path={dashboardRoute} component={DashboardView} isAuthenticated={isAuthenticated} />
+        <PrivateRoute exact path='/' component={DashboardView} isAuthenticated={isAuthenticated} />
         <PrivateRoute exact path="/admin/proverbs" component={Proverbs} isAuthenticated={isAuthenticated}  />
         <PrivateRoute exact path="/admin/proverbs/:id" component={PreviewProverb} isAuthenticated={isAuthenticated}  />
         <PrivateRoute path="/admin/test_component" component={TestComponent} isAuthenticated={isAuthenticated}  />

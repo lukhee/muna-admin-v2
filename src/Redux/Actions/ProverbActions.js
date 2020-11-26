@@ -10,17 +10,16 @@ const config = {
   }
 }
 
-export const FetchProverb = () => async (dispatch) => {
+export const FetchProverb = (page, pageIndex) => async (dispatch) => {
+  if(page === undefined) {
+    page = 1
+  }
   try {
-    const data = await API.get("/proverbs/"); 
-    // Next pagination
-    // data.data.next
-    // previous pagination
-    // data.data.previous
-
+    dispatch({type: type.TOGGLE_LOADING})
+    const data = await API.get(`/proverbs/?page=${page}`); 
     dispatch({
       type: type.FETCH_PROVERBS,
-      payload: { data: data.data.results, proverbCount: data.data.count },
+      payload: { data: data.data.results, proverbCount: data.data.count, pageIndex: pageIndex },
     });
   } catch (error) {
     if(error.message === 'Network Error') return dispatch(SetAlert({ successType: false, alertMsg: "Network Down, try again" }))
@@ -32,6 +31,8 @@ export const CreateProverbAction = (proverbData) => async (dispatch) => {
   const reformData = {...proverbData, category: [proverbData.category]}
 
   try {
+    
+  console.log(proverbData)
     const result = await API.post("/proverb/", reformData, config);
     dispatch({
       type: type.CREATE_PROVERB,

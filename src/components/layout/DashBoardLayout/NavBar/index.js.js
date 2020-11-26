@@ -32,7 +32,7 @@ const user = {
 
 const items = [
   {
-    href: '/admin',
+    href: '/',
     icon: BarChartIcon,
     title: 'Dashboard'
   },

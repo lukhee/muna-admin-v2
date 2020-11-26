@@ -45,20 +45,19 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Table = ({ tableHeader, children, actionField, showPagination, totalCount }) => {
+const Table = ({ tableHeader, children, actionField, showPagination, totalCount, fetchProverb }) => {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
-    console.log(newPage)
+    fetchProverb(newPage, rowsPerPage)
   };
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
-    console.log("rowsperpage")
   };
 
   return (

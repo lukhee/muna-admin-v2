@@ -3,18 +3,24 @@ const initialState = {
   proverbs: null,
   activeProverb: null,
   loading: true,
-  totalProverb: null
+  totalProverb: null,
+  pageIndex: null
 };
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
+    case type.TOGGLE_LOADING : return{
+      ...state,
+      loading : true
+  }
     case types.FETCH_PROVERBS:
       return {
         ...state,
         proverbs: payload.data,
         loading: false,
-        totalProverb: payload.proverbCount
+        totalProverb: payload.proverbCount,
+        pageIndex: payload.pageIndex
       };
 
       case types.CREATE_PROVERB:

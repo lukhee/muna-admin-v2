@@ -68,42 +68,51 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProverbTable = ({ proverbs, publishHandler, previewHandler, deleteHandler, totalProverb }) => {
+const ProverbTable = ({ proverbs, pageIndex, loading, publishHandler, previewHandler, deleteHandler, totalProverb, fetchProverb }) => {
+  const setPaginationIndex = (newPage, rowsPerPage) => {
+    const pageIndexCount = rowsPerPage*newPage + 1
+    newPage++
+    fetchProverb(newPage, pageIndexCount)
+  }
   const classes = useStyles();
 
   return (
-    <TableBody tableHeader={tableHeader} actionField={true} showPagination={true} totalCount={totalProverb}>
-      {proverbs.map((data, index) => (
-        <TableRow key={data.id}>
-          <StyledTableCell component="th" scope="data">
-            {index + 1}
-          </StyledTableCell>
-          <StyledTableCell>
-            <Tooltips title={data.category}>
-              {data.content}
-            </Tooltips>
-          </StyledTableCell>
-          <StyledTableCell>{data.ethnic.language}</StyledTableCell>
-          <StyledTableCell>
-            <span
-              className={data.publish ? classes.published : classes.unpublished}
-            >
-              {data.publish ? "published" : "unpublished"}
-            </span>
-          </StyledTableCell>
-          <StyledTableCell align="right">
-            <MenuDropDown
-              menuTitle={menuTitle}
-              publish={data.publish}
-              toggleState={true}
-              publishHandler={() => publishHandler(data)}
-              previewHandler={() => previewHandler(data.id)}
-              deleteHandler={() => deleteHandler(data.id)}
-            />
-          </StyledTableCell>
-        </TableRow>
-      ))}
-    </TableBody>
+    <>
+    {loading ? (<h2> Loading ...</h2>) : (
+      <TableBody tableHeader={tableHeader} actionField={true} showPagination={true} totalCount={totalProverb} fetchProverb={(newPage, rowsPerPage)=>setPaginationIndex(newPage, rowsPerPage)}>
+        {proverbs.map((data, index) => (
+          <TableRow key={data.id}>
+            <StyledTableCell component="th" scope="data">
+              {pageIndex + index}
+            </StyledTableCell>
+            <StyledTableCell>
+              <Tooltips title={data.category}>
+                {data.content}
+              </Tooltips>
+            </StyledTableCell>
+            <StyledTableCell>{data.ethnic.language}</StyledTableCell>
+            <StyledTableCell>
+              <span
+                className={data.publish ? classes.published : classes.unpublished}
+              >
+                {data.publish ? "published" : "unpublished"}
+              </span>
+            </StyledTableCell>
+            <StyledTableCell align="right">
+              <MenuDropDown
+                menuTitle={menuTitle}
+                publish={data.publish}
+                toggleState={true}
+                publishHandler={() => publishHandler(data)}
+                previewHandler={() => previewHandler(data.id)}
+                deleteHandler={() => deleteHandler(data.id)}
+              />
+            </StyledTableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    )}
+    </>
   );
 };
 

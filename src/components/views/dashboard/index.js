@@ -3,6 +3,7 @@ import {
   makeStyles
 } from '@material-ui/core';
 import Page from '../../general/Pages'
+import TestComponent from '../testCompoenent'
 
 const useStyles = makeStyles((theme) => ({
     root: {

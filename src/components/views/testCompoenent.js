@@ -1,16 +1,11 @@
 import React from "react";
-import { Button, Modal, MenuDropDown } from "../UiElements";
+import { Button, Modal, MenuDropDown, MultipleSelect } from "../UiElements";
 
 const testCompoenent = () => {
   return (
     <div>
       <Button> Hello </Button>
-      <Modal modalTitle="Create Proverb"> Modal </Modal>
-      <MenuDropDown
-        status="publish"
-        previewHandler={() => console.log("one")}
-        publishHandler={() => console.log("two")}
-      />
+      <MultipleSelect/>
     </div>
   );
 };
