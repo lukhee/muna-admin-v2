@@ -1,17 +1,16 @@
 import React from 'react';
 import { emphasize, withStyles } from '@material-ui/core/styles';
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import Chip from '@material-ui/core/Chip';
+import {Breadcrumbs, Chip} from '@material-ui/core'
 import HomeIcon from '@material-ui/icons/Home';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const StyledBreadcrumb = withStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.grey[100],
     height: theme.spacing(3),
     color: theme.palette.grey[800],
+    textTransform: 'capitalize',
     fontWeight: theme.typography.fontWeightRegular,
-    '&:hover, &:focus': {
+    '&:hover': {
       backgroundColor: theme.palette.grey[300],
     },
     '&:active': {
@@ -19,30 +18,42 @@ const StyledBreadcrumb = withStyles((theme) => ({
       backgroundColor: emphasize(theme.palette.grey[300], 0.12),
     },
   },
-}))(Chip); // TypeScript only: need a type cast here because https://github.com/Microsoft/TypeScript/issues/26591
+}))(Chip); 
 
-function handleClick(event) {
-  event.preventDefault();
-  console.info('You clicked a breadcrumb.');
-}
+export default function CustomizedBreadcrumbs({match, history}) {
+  const path = match.path.substr(1);
+  let paths = path.split('/');
+  if (paths[paths.length - 1].indexOf(':') > -1) {
+    paths = paths.filter((x) => x.indexOf(':') === -1);
+  }
 
-export default function CustomizedBreadcrumbs() {
+  const handleClick = (event, sub) => {
+    event.preventDefault();
+    const newPath = path.split(sub)[0] + sub;
+    history.push(`/${newPath}`)
+  }
+
   return (
     <Breadcrumbs aria-label="breadcrumb">
-      <StyledBreadcrumb
-        component="a"
-        href="#"
-        label="Home"
-        icon={<HomeIcon fontSize="small" />}
-        onClick={handleClick}
-      />
-      <StyledBreadcrumb component="a" href="#" label="Catalog" onClick={handleClick} />
-      <StyledBreadcrumb
-        label="Accessories"
-        deleteIcon={<ExpandMoreIcon />}
-        onClick={handleClick}
-        onDelete={handleClick}
-      />
+      {
+        paths.map((sub, index)=>
+          paths.length === index+1 && path.length === 0 ?
+            ( 
+              <StyledBreadcrumb
+                key={index}
+                icon={!sub && <HomeIcon fontSize="small" /> }
+                clickable={false}
+                label={sub ? sub : 'Home'}
+              />
+            ) :  ( 
+              <StyledBreadcrumb
+                key={index}
+                label={sub}
+                icon={index === 0 && <HomeIcon fontSize="small" /> }
+                onClick={(e)=>handleClick(e, sub)}
+              />
+            )
+        )}
     </Breadcrumbs>
   );
 }

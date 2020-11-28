@@ -2,8 +2,8 @@ import React from 'react';
 import {
   makeStyles
 } from '@material-ui/core';
+import BreadCrumbsNav from '../../navs/BreadCrumbView'
 import Page from '../../general/Pages'
-import TestComponent from '../testCompoenent'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -14,14 +14,14 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-const Dashboard = () => {
+const Dashboard = ({history, match}) => {
     const classes = useStyles();
     return (
         <Page
         className={classes.root}
         title='dashboard'
         >
-            <h1> DashBoard </h1>
+          <BreadCrumbsNav heading='Dashboard' match={match} history={history}/>
         </Page>
     );
 };

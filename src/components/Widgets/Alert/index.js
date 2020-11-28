@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    zIndex: "10",
+    zIndex: "10000",
     background: theme.palette.background.paper,
     textTransform: "uppercase",
     fontSize: "15px",

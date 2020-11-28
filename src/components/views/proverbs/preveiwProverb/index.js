@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core";
 import ProverbContent from "./proverbContent";
+import BreadCrumbsNav from '../../../navs/BreadCrumbView'
 import EditProverb from "./editProverb";
 import {
   UpdateProverb,
@@ -30,6 +31,7 @@ const PreviewProverb = ({
   UpdateProverbProp,
   ActivateProverb,
   match,
+  history
 }) => {
   let id = match.params.id;
   useEffect(() => {
@@ -39,6 +41,7 @@ const PreviewProverb = ({
   const classes = useStyles();
   return (
     <div className={classes.root}>
+    <BreadCrumbsNav heading='Dashboard' match={match} history={history}/>
       {activeProverb ? (
         <>
           <EditProverb content={activeProverb} submitUpdate={UpdateProverb} />

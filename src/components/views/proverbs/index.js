@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
 import { makeStyles, Box } from "@material-ui/core";
 import { Modal } from "../../UiElements";
+import BreadCrumbsNav from '../../navs/BreadCrumbView'
 import { ProverbTable } from "./widgets";
 import Page from "../../general/Pages";
 import { CreateProverb } from "./widgets";
@@ -38,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Proverbs = ({
   history,
+  match,
   FetchProverb,
   CreateProverbAction,
   DeleteProverb,
@@ -45,11 +47,17 @@ const Proverbs = ({
   proverbs: { loading, pageIndex, proverbs, totalProverb, ...rest },
 }) => {
   const [closeModal, setModal] = useState(false);
+
   useEffect(() => {
     const page = 1
     const pageIndex = 1
-    FetchProverb(page, pageIndex);
-  }, [FetchProverb]);
+    if(proverbs === null) {
+      
+    (async function anyNameFunction() {
+      await FetchProverb(page, pageIndex);
+    })();
+    } 
+  }, [FetchProverb, proverbs]);
   const classes = useStyles();
 
   const publishHandler = (data) => {
@@ -70,6 +78,7 @@ const Proverbs = ({
 
   return (
     <Page className={classes.root} title="Proverbs">
+      <BreadCrumbsNav heading='Proverb' match={match} history={history}/>
       <Box className={classes.tableField}>
         <Box className={classes.addProverb}>
           <Modal modalTitle="Add Proverb" closeModal={closeModal}>

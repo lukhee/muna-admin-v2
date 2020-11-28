@@ -63,7 +63,7 @@ const items = [
     blankLink: true
   },
   {
-    href: '/register',
+    href: 'admin/register',
     icon: UserPlusIcon,
     title: 'Register'
   },
